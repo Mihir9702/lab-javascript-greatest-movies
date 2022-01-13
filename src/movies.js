@@ -43,9 +43,7 @@ const orderByYear = (arr) => {
 }
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-const orderAlphabetically = (arr) => {
-  return arr.map(e => e.title).sort().slice(0,20);
-}
+const orderAlphabetically = (arr) => {return arr.map(e => e.title).sort().slice(0,20);}
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 const turnHoursToMinutes = (arr) => {
@@ -70,6 +68,7 @@ const turnHoursToMinutes = (arr) => {
               fullTime = words[0] + words[1];
           }
       }
+
       let obj = {...e};
       obj.duration = fullTime;
       return obj;
@@ -77,7 +76,21 @@ const turnHoursToMinutes = (arr) => {
 }
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
-function bestYearAvg() {}
+function bestYearAvg(arr) {
+  return arr.map(e => {
+    let obj = [...e];
+    let sum = 0;
+    obj.sort((a,b) => {
+      a.year - b.year;
+      if (a.year === b.year) {
+        sum += a.score + b.score;
+      }
+      return sum;
+    });
+    let avg = (len === 0) ? 0 : Math.round((sum / obj.length) * 100) / 100;
+    return `The best year was $ with an average score of ${avg}`;
+  });
+}
 
 /* Environment setup. Do not modify the below code. */
 if (typeof module !== 'undefined') {
