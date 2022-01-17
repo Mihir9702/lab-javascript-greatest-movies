@@ -35,8 +35,7 @@ const dramaMoviesScore = (arr) => {
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 const orderByYear = (arr) => {
-  let years = [];
-  arr.map(e => {years.push(e);});
+  let years = arr.map(e => {return e;})
   years.sort((a,b) => {return (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0;});
   years.sort((a,b) => a.year - b.year);
   return years;
@@ -77,19 +76,22 @@ const turnHoursToMinutes = (arr) => {
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg(arr) {
-  return arr.map(e => {
-    let obj = [...e];
-    let sum = 0;
-    obj.sort((a,b) => {
-      a.year - b.year;
-      if (a.year === b.year) {
-        sum += a.score + b.score;
+  const moviesByYear = orderByYear(arr);
+  let lastYear = 0, avg = 0, year = 0;
+
+  if (arr.length === 0) { return null } 
+  else {
+    moviesByYear.forEach(e => {
+      if (e.year > lastYear) {
+        const thisYear = moviesByYear.filter(el => { return (el.year === e.year) ? true : false })
+        if (scoresAverage(thisYear) > avg) {
+          avg = scoresAverage(thisYear);
+          year = e.year;
+        }
       }
-      return sum;
-    });
-    let avg = (len === 0) ? 0 : Math.round((sum / obj.length) * 100) / 100;
-    return `The best year was $ with an average score of ${avg}`;
-  });
+    })
+  }
+  return `The best year was ${year} with an average score of ${avg}`;
 }
 
 /* Environment setup. Do not modify the below code. */
